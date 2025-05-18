@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Список дел :3</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="scripts/script.js" defer></script>
+</head>
+
+<body>
+  <section class="left-side">
+    <div class="instruments">
+      <img alt="Аватар" src="images/cat_avatar.jpg">
+      <span id="user_name">Дизигнеры решили сделать здесь имя</span>
+      <button id="search"><img alt="search icon" src="images/icons/Search.png"></button>
+    </div>
+    <nav>
+      <div class="static-folders">
+        <button class="plans-for-today"><img alt="sun icon" src="images/icons/Sun.png"><span>Планы на сегодня</span></button>
+        <button class="favourite-plans"><img alt="star icon" src="images/icons/Star.png"><span>Избранное</span></button>
+        <button class="calendar"><img alt="calerndar icon" src="images/icons/Calendar.png"><span>Календарь</span></button>
+      </div>
+  
+      <div class="active-folders">
+        <button id="add-new-group"><img alt="plus icon" src="images/icons/Plus.png"><span>Новая группа</span></button>
+      </div>
+    </nav>
+  </section>
+
+  <div class="right-side">
+    <header id="category-name">Название категории</header>
+    <main>
+      <div class="new-task-div">
+        <img alt="plus icon" src="images/icons/Plus.png" onclick="add_new_task()">
+        <input type="text" autocomplete="off" id="new_task" placeholder="Новая задача" tabindex="0">
+      </div>
+      <ul id="task_list">
+      </ul>
+    </main>
+  </div>
+
+</body>
+
+</html>

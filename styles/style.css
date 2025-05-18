@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+
+  --back_color: #FFFDF8;
+  --first_color: #686868;
+  --second_color: #BF6A02;
+
+  background-color: var(--back_color);
+  color: var(--first_color);
+
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  border-radius: 0;
+  border: none;
+  background-color: var(--back_color);
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.left-side {
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 24px;
+
+  border-right: var(--second_color) solid 5px;
+}
+
+.instruments {
+  display: flex;
+  flex-flow: nowrap row;
+  align-items: center;
+
+  justify-content: flex-start;
+
+  height: 125px;
+}
+
+.instruments>img {
+  width: 63px;
+  height: 63px;
+
+  border-radius: 50%;
+  margin-right: 45px;
+}
+
+.instruments>button {
+  margin-left: auto;
+}
+
+.static-folders,
+.active-folders {
+  display: flex;
+  flex-flow: nowrap column;
+  align-items: stretch;
+}
+
+.static-folders {
+  border-top: var(--second_color) 6px solid;
+  border-bottom: var(--second_color) 6px solid;
+}
+
+nav>div>button {
+  height: 94px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  color: var(--first_color);
+}
+
+nav>div>button>img {
+  margin-right: 35px;
+  height: 48px;
+  width: 48px;
+}
+
+
+main {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+header {
+  height: 126px;
+  background-color: var(--second_color);
+  color: var(--back_color);
+
+  font-size: 40px;
+  letter-spacing: 2px;
+  padding-left: 20px;
+  align-content: center;
+
+}
+
+.new-task-div {
+  height: 94px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  border-bottom: solid 6px var(--second_color);
+}
+
+#new_task{
+  border: none;
+  background-color: var(--back_color);
+  font-size: 32px;
+  margin-left: 38px;
+  letter-spacing: 1.5px;
+}
+
+#new_task:focus {
+  border: none;
+  outline: none;
+  color: var(--first_color);
+}
+
+#task_list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+#task_list>li {
+  border: var(--second_color) 1px solid;
+  background-color: var(--back_color);
+  font-size: 32px;
+  margin-left: 38px;
+  letter-spacing: 1.5px;
+  padding-left: 1%;
+}
