@@ -20,7 +20,7 @@ const task_buttons = `
 <button>
 <img alt='favourite icon' src="images/icons/Star.png">
 </button>
-<button onclick="update_task(this)">
+<button onclick="edit_task(this)">
 <img alt='change icon' src="images/icons/Edit 2.png">
 </button>`
 
@@ -36,9 +36,8 @@ const task_update_buttons = `
 function add_new_task() {
     let new_task_li = document.createElement('li');
     //шедевро код от шедевро разработчика
-    new_task_li.innerHTML = `<span>${new_task.value}</span>` + task_buttons;
+    new_task_li.innerHTML = `<span>${XSL_attack_chechout(new_task.value)}</span>` + task_buttons;
 
-;
     task_list.appendChild(new_task_li);
 
     save_tasks();
@@ -64,12 +63,12 @@ function load_tasks() {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     tasks.forEach(task => {
         let new_task_li = document.createElement('li')
-        new_task_li.innerHTML = `<span> ${ task }</span>` + task_buttons;
+        new_task_li.innerHTML = `<span> ${ XSL_attack_chechout(task)}</span>` + task_buttons;
         task_list.appendChild(new_task_li);
     });
 }
 
-function update_task(button){
+function edit_task(button){
     console.log('hello world');
     let updating_task = button.parentElement;
 
@@ -78,9 +77,7 @@ function update_task(button){
     const input = updating_task.querySelector('input');
     input.addEventListener('keydown', function(event) {
         if (event.key === "Enter") {
-            updating_task.innerHTML = `<span>${input.value}</span>` + task_buttons;
-            save_tasks();
-            console.log('task updated');
+            update_task(input, updating_task);
         }
     });
 }
@@ -88,7 +85,13 @@ function update_task(button){
 function confirm_update_task(button){
     let updating_task = button.parentElement;
     const input = updating_task.querySelector('input');
-    updating_task.innerHTML = `<span>${input.value}</span>` + task_buttons;
+
+    update_task(input, updating_task);
+}
+
+function update_task(input, updating_task){
+    let value = XSL_attack_chechout(input.value);
+    updating_task.innerHTML = `<span>${value}</span>` + task_buttons;
     save_tasks();
     console.log('task updated');
 }
@@ -102,4 +105,10 @@ function refresh_task_board(){
     let task_list = document.getElementById('task_list');
     task_list.innerHTML = '';
     load_tasks();
+}
+
+function XSL_attack_chechout(text){
+    text = text.replaceAll('<', '&lt;');
+    text = text.replaceAll('>', '&gt;');
+    return text;
 }

@@ -123,7 +123,7 @@ header {
   letter-spacing: 1.5px;
 }
 
-#new_task:focus {
+#new_task:focus, input:focus {
   border: none;
   outline: none;
   color: var(--first_color);
@@ -145,5 +145,10 @@ header {
 }
 
 input {
-  width: 100%;
+  width: calc(100% - 128px);
+  border: none;
+  background-color: #FFFDF8;
+  color: #686868;
+  font-size: 32px;
 }
+
