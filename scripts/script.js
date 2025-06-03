@@ -1,3 +1,4 @@
+//код снизу
 let task_list = document.getElementById('task_list')
 let new_task = document.getElementById('new_task')
 new_task.addEventListener('keydown', add_new_task_event)
