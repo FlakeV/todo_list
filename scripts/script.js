@@ -6,6 +6,32 @@ new_task.addEventListener('keydown', add_new_task_event)
 // Загрузка задач при запуске страницы
 window.addEventListener('load', load_tasks);
 
+class Task {
+     @param {boolean} isFavourite
+    constructor(text) {
+        this.text = text;
+        this.isFavourite = false;
+        // TODO: группы задач
+        // this.group = null;
+        // TODO: deadline
+        // TODO: start time 
+    }
+
+    /**
+     * Set the favourite status of the task.
+     *
+     */
+    set IsFavourite(isFavourite) {
+        this.isFavourite = isFavourite;
+    }
+
+    render() {
+        let task_li = document.createElement('li');
+        task_li.innerHTML = `<span>${XSS_attack_check(this.text)}</span>` + TASK_BUTTONS;
+        return task_li;
+    }
+}
+
 // Добавление новой задачи
 function add_new_task_event(event) {
     if (event.key === "Enter") {
@@ -13,7 +39,7 @@ function add_new_task_event(event) {
     }
 }
 
-const task_buttons = `
+const TASK_BUTTONS = `
 <button onclick="delete_task(this)">
 <img alt='trash icon' src="images/icons/Trash3.png">
 </button>
@@ -24,7 +50,7 @@ const task_buttons = `
 <img alt='change icon' src="images/icons/Edit 2.png">
 </button>`
 
-const task_update_buttons = `
+const TASK_UPDATE_BUTTONS = `
 <button onclick="confirm_update_task(this)">
 <img alt='confirm' src="images/icons/confirm.png">
 </button>
@@ -35,10 +61,9 @@ const task_update_buttons = `
 
 function add_new_task() {
     let new_task_li = document.createElement('li');
-    //шедевро код от шедевро разработчика
-    new_task_li.innerHTML = `<span>${XSL_attack_check(new_task.value)}</span>` + task_buttons;
+    new_task_obj = new Task(new_task.value);
 
-    task_list.appendChild(new_task_li);
+    task_list.appendChild(new_task_obj.render());
 
     save_tasks();
     new_task.value = '';
@@ -47,7 +72,6 @@ function add_new_task() {
 
 // Удаление задач
 function delete_task(button) {
-    // TODO Удаление задачи
     let deleting_li = button.parentElement;
     deleting_li.remove();
     save_tasks();
@@ -56,24 +80,24 @@ function delete_task(button) {
 
 // Работа с localStorage
 function save_tasks() {
-    const tasks = Array.from(task_list.children).map(li => li.textContent);
+    const tasks = Array.from(task_list.children).map(li => li.querySelector('span').textContent);
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 function load_tasks() {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     tasks.forEach(task => {
-        let new_task_li = document.createElement('li')
-        new_task_li.innerHTML = `<span> ${ XSL_attack_check(task)}</span>` + task_buttons;
-        task_list.appendChild(new_task_li);
+        new_task_obj = new Task(task);
+        task_list.appendChild(new_task_obj.render());
     });
 }
 
+//
 function edit_task(button){
     console.log('hello world');
     let updating_task = button.parentElement;
 
-    updating_task.innerHTML = `<input value="${updating_task.textContent}">` + task_update_buttons;
+    updating_task.innerHTML = `<input value="${updating_task.textContent}">` + TASK_UPDATE_BUTTONS;
 
     const input = updating_task.querySelector('input');
     input.addEventListener('keydown', function(event) {
@@ -91,8 +115,8 @@ function confirm_update_task(button){
 }
 
 function update_task(input, updating_task){
-    let value = XSL_attack_check(input.value);
-    updating_task.innerHTML = `<span>${value}</span>` + task_buttons;
+    let value = XSS_attack_check(input.value);
+    updating_task.innerHTML = `<span>${value}</span>` + TASK_BUTTONS;
     save_tasks();
     console.log('task updated');
 }
@@ -108,7 +132,7 @@ function refresh_task_board(){
     load_tasks();
 }
 
-function XSL_attack_check(text){
+function XSS_attack_check(text){
     text = text.replaceAll('<', '&lt;');
     text = text.replaceAll('>', '&gt;');
     return text;
