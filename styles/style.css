@@ -16,7 +16,7 @@ body {
   color: var(--first_color);
 
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 540px auto;
 
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -123,7 +123,7 @@ header {
   letter-spacing: 1.5px;
 }
 
-#new_task:focus {
+#new_task:focus, input:focus {
   border: none;
   outline: none;
   color: var(--first_color);
@@ -142,4 +142,16 @@ header {
   margin-left: 38px;
   letter-spacing: 1.5px;
   padding-left: 1%;
+}
+
+input {
+  width: calc(100% - 128px);
+  border: none;
+  background-color: #FFFDF8;
+  color: #686868;
+  font-size: 32px;
+}
+
+span {
+  word-break: break-all;
 }
