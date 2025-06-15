@@ -16,7 +16,7 @@ body {
   color: var(--first_color);
 
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 540px auto;
 
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -152,3 +152,6 @@ input {
   font-size: 32px;
 }
 
+span {
+  word-break: break-all;
+}

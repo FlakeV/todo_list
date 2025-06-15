@@ -36,11 +36,12 @@ const task_update_buttons = `
 function add_new_task() {
     let new_task_li = document.createElement('li');
     //шедевро код от шедевро разработчика
-    new_task_li.innerHTML = `<span>${XSL_attack_chechout(new_task.value)}</span>` + task_buttons;
+    new_task_li.innerHTML = `<span>${XSL_attack_check(new_task.value)}</span>` + task_buttons;
 
     task_list.appendChild(new_task_li);
 
     save_tasks();
+    new_task.value = '';
     console.log('new task added');
 }
 
@@ -63,7 +64,7 @@ function load_tasks() {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     tasks.forEach(task => {
         let new_task_li = document.createElement('li')
-        new_task_li.innerHTML = `<span> ${ XSL_attack_chechout(task)}</span>` + task_buttons;
+        new_task_li.innerHTML = `<span> ${ XSL_attack_check(task)}</span>` + task_buttons;
         task_list.appendChild(new_task_li);
     });
 }
@@ -90,7 +91,7 @@ function confirm_update_task(button){
 }
 
 function update_task(input, updating_task){
-    let value = XSL_attack_chechout(input.value);
+    let value = XSL_attack_check(input.value);
     updating_task.innerHTML = `<span>${value}</span>` + task_buttons;
     save_tasks();
     console.log('task updated');
@@ -107,7 +108,7 @@ function refresh_task_board(){
     load_tasks();
 }
 
-function XSL_attack_chechout(text){
+function XSL_attack_check(text){
     text = text.replaceAll('<', '&lt;');
     text = text.replaceAll('>', '&gt;');
     return text;
