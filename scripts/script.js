@@ -7,7 +7,6 @@ new_task.addEventListener('keydown', add_new_task_event)
 window.addEventListener('load', load_tasks);
 
 class Task {
-     @param {boolean} isFavourite
     constructor(text) {
         this.text = text;
         this.isFavourite = false;
@@ -15,14 +14,6 @@ class Task {
         // this.group = null;
         // TODO: deadline
         // TODO: start time 
-    }
-
-    /**
-     * Set the favourite status of the task.
-     *
-     */
-    set IsFavourite(isFavourite) {
-        this.isFavourite = isFavourite;
     }
 
     render() {
@@ -87,7 +78,7 @@ function save_tasks() {
 function load_tasks() {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     tasks.forEach(task => {
-        new_task_obj = new Task(task);
+        var new_task_obj = new Task(task);
         task_list.appendChild(new_task_obj.render());
     });
 }
