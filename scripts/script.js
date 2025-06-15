@@ -18,7 +18,8 @@ class Task {
 
     render() {
         let task_li = document.createElement('li');
-        task_li.innerHTML = `<span>${XSS_attack_check(this.text)}</span>` + TASK_BUTTONS;
+        task_li.innerHTML = `<span>${XSS_attack_check(this.text)}</span>` + TASK_BUTTON_DELETE + 
+        (this.isFavourite ? TASK_BUTTON_FAVOURITE_YES: TASK_BUTTON_FAVOURITE_NO) + TASK_BUTTON_EDIT;
         return task_li;
     }
 }
@@ -30,13 +31,22 @@ function add_new_task_event(event) {
     }
 }
 
-const TASK_BUTTONS = `
+const TASK_BUTTON_DELETE = `
 <button onclick="delete_task(this)">
 <img alt='trash icon' src="images/icons/Trash3.png">
-</button>
-<button>
+</button>`
+
+const TASK_BUTTON_FAVOURITE_NO = `
+<button id="notIsFavourite" onclick="toggle_favourite(this)">
 <img alt='favourite icon' src="images/icons/Star.png">
-</button>
+</button>`
+
+const TASK_BUTTON_FAVOURITE_YES = `
+<button id="isFavourite" onclick="toggle_favourite(this)">
+<img alt='favourite icon' src="images/icons/StarFull.png">
+</button>`
+
+const TASK_BUTTON_EDIT = `
 <button onclick="edit_task(this)">
 <img alt='change icon' src="images/icons/Edit 2.png">
 </button>`
@@ -127,4 +137,27 @@ function XSS_attack_check(text){
     text = text.replaceAll('<', '&lt;');
     text = text.replaceAll('>', '&gt;');
     return text;
+}
+
+// Favourite task feature
+function toggle_favourite(button) {
+    let task_li = button.parentElement;
+    let isFavourite = button.id === 'notIsFavourite';
+
+    // Создаём новую кнопку
+    const newButton = document.createElement('button');
+    newButton.onclick = function() { toggle_favourite(this); };
+    if (isFavourite) {
+        newButton.id = 'isFavourite';
+        newButton.innerHTML = `<img alt='favourite icon' src="images/icons/StarFull.png">`;
+    } else {
+        newButton.id = 'notIsFavourite';
+        newButton.innerHTML = `<img alt='favourite icon' src="images/icons/Star.png">`;
+    }
+
+    // Заменяем старую кнопку на новую
+    task_li.replaceChild(newButton, button);
+
+    // Можно добавить обновление данных и сохранение
+    save_tasks();
 }
